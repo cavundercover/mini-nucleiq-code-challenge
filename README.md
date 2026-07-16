@@ -22,7 +22,7 @@ Fork this repository and once completed, send us the url of your repository back
 
 Please don’t squash your commits before submitting; we want to see the progression of your work, not only the final result.
 
-Include a short README explaining how to run the tests, the solution, and any assumptions or trade-offs you made.
+Include a **NOTES.md** file explaining your solution, your decisions and why you made them, or any assumptions or trade-offs you made.Please also include instructions for how to run the tests.
 
 ## The task
 
