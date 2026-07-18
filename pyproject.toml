@@ -24,7 +24,11 @@ dev = [
 
 [tool.mypy]
 strict = true
+files = ["src", "tests"]
 
 [tool.pytest.ini_options]
 addopts = "-v"
 testpaths = ["tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]

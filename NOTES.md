@@ -11,9 +11,11 @@
 
 Optional:
 
-`uv run mypy src` type checking
+`uv run mypy` type checking (for src and also for tests)
 
 `uv run ruff check` linting
+
+`uv run ruff check --fix` autofix linting problems
 
 `uv run ruff format` formatting
 
@@ -42,3 +44,5 @@ On one hand I would like to show that I can get out of my confort zone and I can
 ## Design decisions
 
 - As the requirements of the project said, we don't need to implement an http api nor a cli app, so I will just expose the app though __init__.py, without a main file. We can observe how the program behaves running the test suite.
+- Use a TDD approach with BDD test names, I will develop the solution outside in using tdd, the acceptance test will drive my development.
+- For good testing practices I usually follow the approach of coding by hand my own test doubles, I love this guide about test doubles from Fran Iglesias https://franiglesias.github.io/test-doubles-1/ https://franiglesias.github.io/test-doubles-2/ I even participated in a kata with him.
