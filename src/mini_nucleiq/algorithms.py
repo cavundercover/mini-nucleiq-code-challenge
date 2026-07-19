@@ -52,3 +52,28 @@ def contiguous_ones(sample: Sample) -> AlgorithmResult:
     return AlgorithmResult(
         decision=decision, positivity=count / total, positive_cells_count=count
     )
+
+
+def surrounded_ones(sample: Sample) -> AlgorithmResult:
+    total = len(sample)
+    count = 0
+    if total == 0:
+        raise ValueError("Sample is empty")
+    for index, cell in enumerate(sample):
+        if (
+            cell == 1
+            and index > 0
+            and sample[index - 1] == 0
+            and index + 1 < total
+            and sample[index + 1] == 0
+        ):
+            count += 1
+
+    decision = (
+        AlgorithmDecision.POSITIVE
+        if (count * 100 > 10 * total)
+        else AlgorithmDecision.NEGATIVE
+    )
+    return AlgorithmResult(
+        decision=decision, positivity=count / total, positive_cells_count=count
+    )
