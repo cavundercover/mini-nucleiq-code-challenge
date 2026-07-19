@@ -32,3 +32,23 @@ def even_zeroes(sample: Sample) -> AlgorithmResult:
     return AlgorithmResult(
         decision=decision, positivity=count / total, positive_cells_count=count
     )
+
+
+def contiguous_ones(sample: Sample) -> AlgorithmResult:
+    total = len(sample)
+    count = 0
+    previous = 0
+    if total == 0:
+        raise ValueError("Sample is empty")
+    for cell in sample:
+        if cell == 1 and previous == 1:
+            count += 1
+        previous = cell
+    decision = (
+        AlgorithmDecision.POSITIVE
+        if (count * 100 > 20 * total)
+        else AlgorithmDecision.NEGATIVE
+    )
+    return AlgorithmResult(
+        decision=decision, positivity=count / total, positive_cells_count=count
+    )
