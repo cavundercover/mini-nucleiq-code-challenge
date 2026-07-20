@@ -5,7 +5,10 @@ from conftest import SAMPLE_C
 from mini_nucleiq.analysis import AnalysisDecision, analyze_sample
 from mini_nucleiq.samples import HttpSamplesClient
 
-BASE = "https://raw.githubusercontent.com/cellsia/mini-nucleiq-code-challenge/main/samples"
+BASE = (
+    "https://raw.githubusercontent.com/cellsia/mini-nucleiq-code-challenge/main/samples"
+)
+
 
 @respx.mock
 def test_full_analysis_with_real_client() -> None:

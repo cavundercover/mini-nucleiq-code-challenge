@@ -9,6 +9,7 @@ class SamplesClient(Protocol):
     def get_sample(self, sample_name: str) -> Sample:
         """Return cell data of a sample named by sample_name"""
 
+
 class HttpSamplesClient:
     BASE_URL = "https://raw.githubusercontent.com/cellsia/mini-nucleiq-code-challenge/main/samples"
 
