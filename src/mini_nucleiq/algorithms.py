@@ -1,3 +1,4 @@
+from collections.abc import Callable
 from dataclasses import dataclass
 from enum import StrEnum
 
@@ -16,49 +17,27 @@ class AlgorithmResult:
     positive_cells_count: int
 
 
-def even_zeroes(sample: Sample) -> AlgorithmResult:
-    total = len(sample)
+def even_zeroes(sample: Sample) -> int:
     count = 0
-    if total == 0:
-        raise ValueError("Sample is empty")
     for index, cell in enumerate(sample):
         if index % 2 == 0 and cell == 0:
             count += 1
-    decision = (
-        AlgorithmDecision.POSITIVE
-        if (count * 100 > 30 * total)
-        else AlgorithmDecision.NEGATIVE
-    )
-    return AlgorithmResult(
-        decision=decision, positivity=count / total, positive_cells_count=count
-    )
+    return count
 
 
-def contiguous_ones(sample: Sample) -> AlgorithmResult:
-    total = len(sample)
+def contiguous_ones(sample: Sample) -> int:
     count = 0
     previous = 0
-    if total == 0:
-        raise ValueError("Sample is empty")
     for cell in sample:
         if cell == 1 and previous == 1:
             count += 1
         previous = cell
-    decision = (
-        AlgorithmDecision.POSITIVE
-        if (count * 100 > 20 * total)
-        else AlgorithmDecision.NEGATIVE
-    )
-    return AlgorithmResult(
-        decision=decision, positivity=count / total, positive_cells_count=count
-    )
+    return count
 
 
-def surrounded_ones(sample: Sample) -> AlgorithmResult:
+def surrounded_ones(sample: Sample) -> int:
     total = len(sample)
     count = 0
-    if total == 0:
-        raise ValueError("Sample is empty")
     for index, cell in enumerate(sample):
         if (
             cell == 1
@@ -68,10 +47,33 @@ def surrounded_ones(sample: Sample) -> AlgorithmResult:
             and sample[index + 1] == 0
         ):
             count += 1
+    return count
 
+
+type AlgorithmStrategy = Callable[[Sample], int]
+
+
+@dataclass(frozen=True)
+class Algorithm:
+    strategy: AlgorithmStrategy
+    positivity_threshold: int
+
+
+ALGORITHMS = {
+    "even-zeroes": Algorithm(strategy=even_zeroes, positivity_threshold=30),
+    "contiguous-ones": Algorithm(strategy=contiguous_ones, positivity_threshold=20),
+    "surrounded-ones": Algorithm(strategy=surrounded_ones, positivity_threshold=10),
+}
+
+
+def run_algorithm(sample: Sample, algorithm: Algorithm) -> AlgorithmResult:
+    total = len(sample)
+    if len(sample) == 0:
+        raise ValueError("Sample is empty")
+    count = algorithm.strategy(sample)
     decision = (
         AlgorithmDecision.POSITIVE
-        if (count * 100 > 10 * total)
+        if (count * 100 > algorithm.positivity_threshold * total)
         else AlgorithmDecision.NEGATIVE
     )
     return AlgorithmResult(

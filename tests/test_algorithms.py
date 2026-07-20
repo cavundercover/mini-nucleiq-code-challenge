@@ -2,10 +2,9 @@ import pytest
 from conftest import SAMPLE_C
 
 from mini_nucleiq.algorithms import (
+    ALGORITHMS,
     AlgorithmDecision,
-    contiguous_ones,
-    even_zeroes,
-    surrounded_ones,
+    run_algorithm,
 )
 from mini_nucleiq.samples import Sample
 
@@ -45,7 +44,7 @@ def test_even_zeroes(
     expected_positivity: float,
     expected_decision: AlgorithmDecision,
 ) -> None:
-    result = even_zeroes(sample)
+    result = run_algorithm(sample, ALGORITHMS["even-zeroes"])
 
     assert result.decision is expected_decision
     assert result.positivity == pytest.approx(expected_positivity)
@@ -54,7 +53,7 @@ def test_even_zeroes(
 
 def test_even_zeroes_should_reject_empty_sample() -> None:
     with pytest.raises(ValueError, match="Sample is empty"):
-        even_zeroes([])
+        run_algorithm([], ALGORITHMS["even-zeroes"])
 
 
 @pytest.mark.parametrize(
@@ -106,7 +105,7 @@ def test_contiguous_ones(
     expected_positivity: float,
     expected_decision: AlgorithmDecision,
 ) -> None:
-    result = contiguous_ones(sample)
+    result = run_algorithm(sample, ALGORITHMS["contiguous-ones"])
 
     assert result.decision is expected_decision
     assert result.positivity == pytest.approx(expected_positivity)
@@ -115,7 +114,7 @@ def test_contiguous_ones(
 
 def test_contiguous_ones_should_reject_empty_sample() -> None:
     with pytest.raises(ValueError, match="Sample is empty"):
-        contiguous_ones([])
+        run_algorithm([], ALGORITHMS["contiguous-ones"])
 
 
 @pytest.mark.parametrize(
@@ -187,7 +186,7 @@ def test_surrounded_ones(
     expected_positivity: float,
     expected_decision: AlgorithmDecision,
 ) -> None:
-    result = surrounded_ones(sample)
+    result = run_algorithm(sample, ALGORITHMS["surrounded-ones"])
 
     assert result.decision is expected_decision
     assert result.positivity == pytest.approx(expected_positivity)
@@ -196,4 +195,4 @@ def test_surrounded_ones(
 
 def test_surrounded_ones_should_reject_empty_sample() -> None:
     with pytest.raises(ValueError, match="Sample is empty"):
-        surrounded_ones([])
+        run_algorithm([], ALGORITHMS["surrounded-ones"])
