@@ -49,3 +49,4 @@ On one hand I would like to show that I can get out of my confort zone and I can
 - I suppose samples will always contain 1 and 0 as values, so i don't add a defensive programming line to check if the value is allowed (-1, 5, 9)...
 - In contiguous_ones the spec says: "counts each 1 that is next (but not previous) to another 1 as a positive cell", but it was more intuitive for me to think about it like "counts each 1 that has a previous 1 as a positive cell".
 - I realized that the logic of each algorithm is just a loop, everything else we can use a strategy pattern to avoid repeated boilerplate around algorithm core logic. Now that I have them in green, i can refactor safely. For these sort of refactors I have always taken as reference the website refactoring.guru, for example the strategy pattern: https://refactoring.guru/design-patterns/strategy
+- I have added respx which i have found is a library to mock httpx library so we don't send real requests to github.
