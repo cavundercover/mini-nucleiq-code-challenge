@@ -22,9 +22,13 @@ class AnalysisResult:
 def analyze_sample(
     sample_name: str, algorithms: list[str], samples_client: samples.SamplesClient
 ) -> AnalysisResult:
+    if not algorithms:
+        raise ValueError("No algorithms were selected")
     sample = samples_client.get_sample(sample_name=sample_name)
     algorithm_results = []
     for name in algorithms:
+        if name not in ALGORITHMS:
+            raise ValueError(f"Unknown algorithm {name}")
         algorithm_results.append(run_algorithm(sample, ALGORITHMS[name]))
     positives = 0
     for result in algorithm_results:
